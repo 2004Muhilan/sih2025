@@ -1,0 +1,70 @@
+	.file	"sha256_padding.c"
+	.option pic
+	.attribute arch, "rv64i2p1_m2p0_a2p1_f2p2_d2p2_c2p0_zicsr2p0_zifencei2p0"
+	.attribute unaligned_access, 0
+	.attribute stack_align, 16
+	.text
+	.align	1
+	.globl	sha256_padding
+	.type	sha256_padding, @function
+sha256_padding:
+.LFB14:
+	.cfi_startproc
+	addi	sp,sp,-48
+	.cfi_def_cfa_offset 48
+	sd	ra,40(sp)
+	sd	s0,32(sp)
+	sd	s1,24(sp)
+	sd	s2,16(sp)
+	sd	s3,8(sp)
+	.cfi_offset 1, -8
+	.cfi_offset 8, -16
+	.cfi_offset 9, -24
+	.cfi_offset 18, -32
+	.cfi_offset 19, -40
+	mv	s1,a1
+	mv	s0,a2
+	mv	a2,a1
+	mv	a1,a0
+	mv	a0,s0
+	call	memcpy@plt
+	add	a5,s0,s1
+	li	a4,-128
+	sb	a4,0(a5)
+	li	s2,55
+	sub	s2,s2,s1
+	andi	s2,s2,63
+	addi	s3,s1,1
+	mv	a2,s2
+	li	a1,0
+	add	a0,s0,s3
+	call	memset@plt
+	slli	a1,s1,3
+	add	s3,s3,s2
+	add	a2,s0,s3
+	li	a5,56
+	li	a3,-8
+.L2:
+	srl	a4,a1,a5
+	sb	a4,0(a2)
+	addiw	a5,a5,-8
+	addi	a2,a2,1
+	bne	a5,a3,.L2
+	ld	ra,40(sp)
+	.cfi_restore 1
+	ld	s0,32(sp)
+	.cfi_restore 8
+	ld	s1,24(sp)
+	.cfi_restore 9
+	ld	s2,16(sp)
+	.cfi_restore 18
+	ld	s3,8(sp)
+	.cfi_restore 19
+	addi	sp,sp,48
+	.cfi_def_cfa_offset 0
+	jr	ra
+	.cfi_endproc
+.LFE14:
+	.size	sha256_padding, .-sha256_padding
+	.ident	"GCC: (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0"
+	.section	.note.GNU-stack,"",@progbits

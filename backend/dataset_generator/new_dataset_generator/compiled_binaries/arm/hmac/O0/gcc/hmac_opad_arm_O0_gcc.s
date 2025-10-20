@@ -1,0 +1,70 @@
+	.arch armv7-a
+	.fpu vfpv3-d16
+	.eabi_attribute 28, 1
+	.eabi_attribute 20, 1
+	.eabi_attribute 21, 1
+	.eabi_attribute 23, 3
+	.eabi_attribute 24, 1
+	.eabi_attribute 25, 1
+	.eabi_attribute 26, 2
+	.eabi_attribute 30, 6
+	.eabi_attribute 34, 1
+	.eabi_attribute 18, 4
+	.file	"hmac_opad.c"
+	.text
+	.align	1
+	.global	hmac_create_opad
+	.syntax unified
+	.thumb
+	.thumb_func
+	.type	hmac_create_opad, %function
+hmac_create_opad:
+	@ args = 0, pretend = 0, frame = 24
+	@ frame_needed = 1, uses_anonymous_args = 0
+	@ link register save eliminated.
+	push	{r7}
+	sub	sp, sp, #28
+	add	r7, sp, #0
+	str	r0, [r7, #12]
+	str	r1, [r7, #8]
+	str	r2, [r7, #4]
+	movs	r3, #0
+	str	r3, [r7, #20]
+	b	.L2
+.L5:
+	ldr	r2, [r7, #20]
+	ldr	r3, [r7, #8]
+	cmp	r2, r3
+	bcs	.L3
+	ldr	r2, [r7, #12]
+	ldr	r3, [r7, #20]
+	add	r3, r3, r2
+	ldrb	r3, [r3]	@ zero_extendqisi2
+	eor	r3, r3, #92
+	uxtb	r1, r3
+	b	.L4
+.L3:
+	movs	r1, #92
+.L4:
+	ldr	r2, [r7, #4]
+	ldr	r3, [r7, #20]
+	add	r3, r3, r2
+	mov	r2, r1
+	strb	r2, [r3]
+	ldr	r3, [r7, #20]
+	adds	r3, r3, #1
+	str	r3, [r7, #20]
+.L2:
+	ldr	r3, [r7, #20]
+	cmp	r3, #63
+	bls	.L5
+	nop
+	nop
+	adds	r7, r7, #28
+	mov	sp, r7
+	@ sp needed
+	ldr	r7, [sp], #4
+	bx	lr
+	.size	hmac_create_opad, .-hmac_create_opad
+	.ident	"GCC: (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0"
+	.section	.note.GNU-stack,"",%progbits

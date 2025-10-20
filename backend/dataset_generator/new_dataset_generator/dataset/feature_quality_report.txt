@@ -1,0 +1,32 @@
+FEATURE QUALITY REPORT
+================================================================================
+
+Total features: 56
+Healthy features: 33
+Problematic features: 23
+
+Low variance features:
+  - call_ratio: variance = 0.000128
+  - ngram_19_freq: variance = 0.000137
+  - ngram_18_freq: variance = 0.000157
+  - ngram_17_freq: variance = 0.000177
+  - ngram_16_freq: variance = 0.000204
+  - ngram_15_freq: variance = 0.000229
+  - ngram_14_freq: variance = 0.000257
+  - ngram_13_freq: variance = 0.000285
+  - ngram_12_freq: variance = 0.000339
+  - top_opcode_9_freq: variance = 0.000400
+  - ngram_11_freq: variance = 0.000400
+  - ngram_10_freq: variance = 0.000471
+  - top_opcode_8_freq: variance = 0.000486
+  - top_opcode_7_freq: variance = 0.000539
+  - ngram_9_freq: variance = 0.000543
+  - ngram_8_freq: variance = 0.000579
+  - top_opcode_6_freq: variance = 0.000592
+  - ngram_7_freq: variance = 0.000641
+  - top_opcode_5_freq: variance = 0.000661
+  - ngram_6_freq: variance = 0.000671
+  - ngram_5_freq: variance = 0.000724
+  - top_opcode_4_freq: variance = 0.000774
+  - ngram_4_freq: variance = 0.000913
+

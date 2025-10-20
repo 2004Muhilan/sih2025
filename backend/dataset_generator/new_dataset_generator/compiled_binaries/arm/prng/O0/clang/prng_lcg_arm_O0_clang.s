@@ -1,0 +1,62 @@
+	.text
+	.syntax unified
+	.eabi_attribute	67, "2.09"	@ Tag_conformance
+	.eabi_attribute	6, 10	@ Tag_CPU_arch
+	.eabi_attribute	7, 65	@ Tag_CPU_arch_profile
+	.eabi_attribute	8, 1	@ Tag_ARM_ISA_use
+	.eabi_attribute	9, 2	@ Tag_THUMB_ISA_use
+	.fpu	vfpv3-d16
+	.eabi_attribute	34, 1	@ Tag_CPU_unaligned_access
+	.eabi_attribute	15, 1	@ Tag_ABI_PCS_RW_data
+	.eabi_attribute	16, 1	@ Tag_ABI_PCS_RO_data
+	.eabi_attribute	17, 2	@ Tag_ABI_PCS_GOT_use
+	.eabi_attribute	20, 1	@ Tag_ABI_FP_denormal
+	.eabi_attribute	21, 0	@ Tag_ABI_FP_exceptions
+	.eabi_attribute	23, 3	@ Tag_ABI_FP_number_model
+	.eabi_attribute	24, 1	@ Tag_ABI_align_needed
+	.eabi_attribute	25, 1	@ Tag_ABI_align_preserved
+	.eabi_attribute	28, 1	@ Tag_ABI_VFP_args
+	.eabi_attribute	38, 1	@ Tag_ABI_FP_16bit_format
+	.eabi_attribute	18, 4	@ Tag_ABI_PCS_wchar_t
+	.eabi_attribute	26, 2	@ Tag_ABI_enum_size
+	.eabi_attribute	14, 0	@ Tag_ABI_PCS_R9_use
+	.file	"prng_lcg.c"
+	.globl	prng_lcg                        @ -- Begin function prng_lcg
+	.p2align	2
+	.type	prng_lcg,%function
+	.code	32                              @ @prng_lcg
+prng_lcg:
+	.fnstart
+@ %bb.0:
+	.pad	#4
+	sub	sp, sp, #4
+	str	r0, [sp]
+	ldr	r0, [sp]
+	ldr	r0, [r0]
+	ldr	r1, .LCPI0_1
+	mul	r0, r0, r1
+	movw	r1, #12345
+	add	r0, r0, r1
+	ldr	r1, .LCPI0_0
+	and	r0, r0, r1
+	ldr	r1, [sp]
+	str	r0, [r1]
+	ldr	r0, [sp]
+	ldr	r0, [r0]
+	add	sp, sp, #4
+	bx	lr
+	.p2align	2
+@ %bb.1:
+.LCPI0_0:
+	.long	2147483647                      @ 0x7fffffff
+.LCPI0_1:
+	.long	1103515245                      @ 0x41c64e6d
+.Lfunc_end0:
+	.size	prng_lcg, .Lfunc_end0-prng_lcg
+	.cantunwind
+	.fnend
+                                        @ -- End function
+	.ident	"Ubuntu clang version 18.1.3 (1ubuntu1)"
+	.section	".note.GNU-stack","",%progbits
+	.addrsig
+	.eabi_attribute	30, 6	@ Tag_ABI_optimization_goals

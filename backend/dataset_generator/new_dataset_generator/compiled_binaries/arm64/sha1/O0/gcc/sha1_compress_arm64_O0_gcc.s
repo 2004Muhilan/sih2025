@@ -1,0 +1,252 @@
+	.arch armv8-a
+	.file	"sha1_compress.c"
+	.text
+	.align	2
+	.global	sha1_compress
+	.type	sha1_compress, %function
+sha1_compress:
+.LFB0:
+	.cfi_startproc
+	sub	sp, sp, #416
+	.cfi_def_cfa_offset 416
+	stp	x29, x30, [sp, 400]
+	.cfi_offset 29, -16
+	.cfi_offset 30, -8
+	add	x29, sp, 400
+	str	x0, [sp, 8]
+	str	x1, [sp]
+	adrp	x0, :got:__stack_chk_guard
+	ldr	x0, [x0, :got_lo12:__stack_chk_guard]
+	ldr	x1, [x0]
+	str	x1, [sp, 392]
+	mov	x1, 0
+	str	wzr, [sp, 28]
+	b	.L2
+.L3:
+	ldrsw	x0, [sp, 28]
+	lsl	x0, x0, 2
+	ldr	x1, [sp]
+	add	x0, x1, x0
+	ldr	w2, [x0]
+	ldrsw	x0, [sp, 28]
+	lsl	x0, x0, 2
+	add	x1, sp, 72
+	str	w2, [x1, x0]
+	ldr	w0, [sp, 28]
+	add	w0, w0, 1
+	str	w0, [sp, 28]
+.L2:
+	ldr	w0, [sp, 28]
+	cmp	w0, 15
+	ble	.L3
+	mov	w0, 16
+	str	w0, [sp, 32]
+	b	.L4
+.L5:
+	ldr	w0, [sp, 32]
+	sub	w0, w0, #3
+	sxtw	x0, w0
+	lsl	x0, x0, 2
+	add	x1, sp, 72
+	ldr	w1, [x1, x0]
+	ldr	w0, [sp, 32]
+	sub	w0, w0, #8
+	sxtw	x0, w0
+	lsl	x0, x0, 2
+	add	x2, sp, 72
+	ldr	w0, [x2, x0]
+	eor	w1, w1, w0
+	ldr	w0, [sp, 32]
+	sub	w0, w0, #14
+	sxtw	x0, w0
+	lsl	x0, x0, 2
+	add	x2, sp, 72
+	ldr	w0, [x2, x0]
+	eor	w1, w1, w0
+	ldr	w0, [sp, 32]
+	sub	w0, w0, #16
+	sxtw	x0, w0
+	lsl	x0, x0, 2
+	add	x2, sp, 72
+	ldr	w0, [x2, x0]
+	eor	w0, w1, w0
+	ror	w2, w0, 31
+	ldrsw	x0, [sp, 32]
+	lsl	x0, x0, 2
+	add	x1, sp, 72
+	str	w2, [x1, x0]
+	ldr	w0, [sp, 32]
+	add	w0, w0, 1
+	str	w0, [sp, 32]
+.L4:
+	ldr	w0, [sp, 32]
+	cmp	w0, 79
+	ble	.L5
+	ldr	x0, [sp, 8]
+	ldr	w0, [x0]
+	str	w0, [sp, 36]
+	ldr	x0, [sp, 8]
+	ldr	w0, [x0, 4]
+	str	w0, [sp, 40]
+	ldr	x0, [sp, 8]
+	ldr	w0, [x0, 8]
+	str	w0, [sp, 44]
+	ldr	x0, [sp, 8]
+	ldr	w0, [x0, 12]
+	str	w0, [sp, 48]
+	ldr	x0, [sp, 8]
+	ldr	w0, [x0, 16]
+	str	w0, [sp, 52]
+	str	wzr, [sp, 56]
+	b	.L6
+.L11:
+	ldr	w0, [sp, 56]
+	cmp	w0, 19
+	bgt	.L7
+	ldr	w1, [sp, 40]
+	ldr	w0, [sp, 44]
+	and	w1, w1, w0
+	ldr	w0, [sp, 40]
+	mvn	w2, w0
+	ldr	w0, [sp, 48]
+	and	w0, w2, w0
+	orr	w0, w1, w0
+	str	w0, [sp, 60]
+	mov	w0, 31129
+	movk	w0, 0x5a82, lsl 16
+	str	w0, [sp, 64]
+	b	.L8
+.L7:
+	ldr	w0, [sp, 56]
+	cmp	w0, 39
+	bgt	.L9
+	ldr	w1, [sp, 40]
+	ldr	w0, [sp, 44]
+	eor	w0, w1, w0
+	ldr	w1, [sp, 48]
+	eor	w0, w1, w0
+	str	w0, [sp, 60]
+	mov	w0, 60321
+	movk	w0, 0x6ed9, lsl 16
+	str	w0, [sp, 64]
+	b	.L8
+.L9:
+	ldr	w0, [sp, 56]
+	cmp	w0, 59
+	bgt	.L10
+	ldr	w1, [sp, 44]
+	ldr	w0, [sp, 48]
+	orr	w1, w1, w0
+	ldr	w0, [sp, 40]
+	and	w1, w1, w0
+	ldr	w2, [sp, 44]
+	ldr	w0, [sp, 48]
+	and	w0, w2, w0
+	orr	w0, w1, w0
+	str	w0, [sp, 60]
+	mov	w0, 48348
+	movk	w0, 0x8f1b, lsl 16
+	str	w0, [sp, 64]
+	b	.L8
+.L10:
+	ldr	w1, [sp, 40]
+	ldr	w0, [sp, 44]
+	eor	w0, w1, w0
+	ldr	w1, [sp, 48]
+	eor	w0, w1, w0
+	str	w0, [sp, 60]
+	mov	w0, 49622
+	movk	w0, 0xca62, lsl 16
+	str	w0, [sp, 64]
+.L8:
+	ldr	w0, [sp, 36]
+	ror	w1, w0, 27
+	ldr	w0, [sp, 60]
+	add	w1, w1, w0
+	ldr	w0, [sp, 52]
+	add	w1, w1, w0
+	ldr	w0, [sp, 64]
+	add	w1, w1, w0
+	ldrsw	x0, [sp, 56]
+	lsl	x0, x0, 2
+	add	x2, sp, 72
+	ldr	w0, [x2, x0]
+	add	w0, w1, w0
+	str	w0, [sp, 68]
+	ldr	w0, [sp, 48]
+	str	w0, [sp, 52]
+	ldr	w0, [sp, 44]
+	str	w0, [sp, 48]
+	ldr	w0, [sp, 40]
+	ror	w0, w0, 2
+	str	w0, [sp, 44]
+	ldr	w0, [sp, 36]
+	str	w0, [sp, 40]
+	ldr	w0, [sp, 68]
+	str	w0, [sp, 36]
+	ldr	w0, [sp, 56]
+	add	w0, w0, 1
+	str	w0, [sp, 56]
+.L6:
+	ldr	w0, [sp, 56]
+	cmp	w0, 79
+	ble	.L11
+	ldr	x0, [sp, 8]
+	ldr	w1, [x0]
+	ldr	w0, [sp, 36]
+	add	w1, w1, w0
+	ldr	x0, [sp, 8]
+	str	w1, [x0]
+	ldr	x0, [sp, 8]
+	add	x0, x0, 4
+	ldr	w2, [x0]
+	ldr	x0, [sp, 8]
+	add	x0, x0, 4
+	ldr	w1, [sp, 40]
+	add	w1, w2, w1
+	str	w1, [x0]
+	ldr	x0, [sp, 8]
+	add	x0, x0, 8
+	ldr	w2, [x0]
+	ldr	x0, [sp, 8]
+	add	x0, x0, 8
+	ldr	w1, [sp, 44]
+	add	w1, w2, w1
+	str	w1, [x0]
+	ldr	x0, [sp, 8]
+	add	x0, x0, 12
+	ldr	w2, [x0]
+	ldr	x0, [sp, 8]
+	add	x0, x0, 12
+	ldr	w1, [sp, 48]
+	add	w1, w2, w1
+	str	w1, [x0]
+	ldr	x0, [sp, 8]
+	add	x0, x0, 16
+	ldr	w2, [x0]
+	ldr	x0, [sp, 8]
+	add	x0, x0, 16
+	ldr	w1, [sp, 52]
+	add	w1, w2, w1
+	str	w1, [x0]
+	nop
+	adrp	x0, :got:__stack_chk_guard
+	ldr	x0, [x0, :got_lo12:__stack_chk_guard]
+	ldr	x2, [sp, 392]
+	ldr	x1, [x0]
+	subs	x2, x2, x1
+	mov	x1, 0
+	beq	.L12
+	bl	__stack_chk_fail
+.L12:
+	ldp	x29, x30, [sp, 400]
+	add	sp, sp, 416
+	.cfi_restore 29
+	.cfi_restore 30
+	.cfi_def_cfa_offset 0
+	ret
+	.cfi_endproc
+.LFE0:
+	.size	sha1_compress, .-sha1_compress
+	.ident	"GCC: (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0"
+	.section	.note.GNU-stack,"",@progbits

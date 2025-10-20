@@ -1,0 +1,52 @@
+	.file	"custom_des.c"
+	.option pic
+	.attribute arch, "rv64i2p1_m2p0_a2p1_f2p2_d2p2_c2p0_zicsr2p0_zifencei2p0"
+	.attribute unaligned_access, 0
+	.attribute stack_align, 16
+	.text
+	.align	1
+	.globl	des_encrypt
+	.type	des_encrypt, @function
+des_encrypt:
+.LFB14:
+	.cfi_startproc
+	li	a4,56
+	li	a5,0
+	li	a6,-8
+.L2:
+	lbu	a3,0(a0)
+	addi	a0,a0,1
+	sll	a3,a3,a4
+	addiw	a4,a4,-8
+	or	a5,a5,a3
+	bne	a4,a6,.L2
+	li	a3,0
+	li	a6,16
+.L3:
+	andi	a0,a3,7
+	add	a0,a1,a0
+	srli	a4,a5,32
+	lbu	a0,0(a0)
+	xor	a4,a4,a5
+	sext.w	a4,a4
+	xor	a4,a4,a0
+	slli	a4,a4,32
+	slli	a5,a5,32
+	srli	a4,a4,32
+	addiw	a3,a3,1
+	or	a5,a4,a5
+	bne	a3,a6,.L3
+	li	a4,56
+	li	a3,-8
+.L4:
+	srl	a1,a5,a4
+	sb	a1,0(a2)
+	addiw	a4,a4,-8
+	addi	a2,a2,1
+	bne	a4,a3,.L4
+	ret
+	.cfi_endproc
+.LFE14:
+	.size	des_encrypt, .-des_encrypt
+	.ident	"GCC: (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0"
+	.section	.note.GNU-stack,"",@progbits

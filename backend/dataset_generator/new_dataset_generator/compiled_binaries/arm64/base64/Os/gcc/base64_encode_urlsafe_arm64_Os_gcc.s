@@ -1,0 +1,64 @@
+	.arch armv8-a
+	.file	"base64_encode_urlsafe.c"
+	.text
+	.align	2
+	.global	base64_encode_urlsafe
+	.type	base64_encode_urlsafe, %function
+base64_encode_urlsafe:
+.LFB0:
+	.cfi_startproc
+	adrp	x5, .LANCHOR0
+	add	x5, x5, :lo12:.LANCHOR0
+	mov	x4, 0
+.L2:
+	cmp	x4, x1
+	bcc	.L4
+	ret
+.L4:
+	add	x6, x4, 1
+	ldrb	w7, [x0, x4]
+	cmp	x1, x6
+	bls	.L5
+	add	x8, x4, 2
+	ldrb	w3, [x0, x6]
+	cmp	x1, x8
+	bls	.L6
+	add	x6, x4, 3
+	ldrb	w4, [x0, x8]
+.L3:
+	add	w4, w4, w7, lsl 16
+	add	x2, x2, 4
+	add	w3, w4, w3, lsl 8
+	ubfx	x4, x3, 18, 8
+	ldrb	w4, [x5, x4]
+	strb	w4, [x2, -4]
+	ubfx	x4, x3, 12, 6
+	ldrb	w4, [x5, x4]
+	strb	w4, [x2, -3]
+	ubfx	x4, x3, 6, 6
+	and	x3, x3, 63
+	ldrb	w4, [x5, x4]
+	ldrb	w3, [x5, x3]
+	strb	w4, [x2, -2]
+	mov	x4, x6
+	strb	w3, [x2, -1]
+	b	.L2
+.L5:
+	mov	w3, 0
+.L7:
+	mov	w4, 0
+	b	.L3
+.L6:
+	mov	x6, x8
+	b	.L7
+	.cfi_endproc
+.LFE0:
+	.size	base64_encode_urlsafe, .-base64_encode_urlsafe
+	.section	.rodata
+	.set	.LANCHOR0,. + 0
+	.type	b64url, %object
+	.size	b64url, 65
+b64url:
+	.string	"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_"
+	.ident	"GCC: (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0"
+	.section	.note.GNU-stack,"",@progbits

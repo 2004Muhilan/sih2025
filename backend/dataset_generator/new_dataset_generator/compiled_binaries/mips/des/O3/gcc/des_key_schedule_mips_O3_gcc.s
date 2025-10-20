@@ -1,0 +1,113 @@
+	.file	1 "des_key_schedule.c"
+	.section .mdebug.abi32
+	.previous
+	.nan	legacy
+	.module	fp=xx
+	.module	nooddspreg
+	.module	arch=mips32r2
+	.abicalls
+	.text
+	.align	2
+	.globl	des_key_schedule
+	.set	nomips16
+	.set	nomicromips
+	.ent	des_key_schedule
+	.type	des_key_schedule, @function
+des_key_schedule:
+	.frame	$sp,40,$31		# vars= 0, regs= 9/0, args= 0, gp= 0
+	.mask	0x40ff0000,-4
+	.fmask	0x00000000,0
+	.set	noreorder
+	.set	nomacro
+	addiu	$sp,$sp,-40
+	sw	$5,4($6)
+	ext	$15,$4,4,16
+	sw	$4,68($6)
+	sll	$25,$4,4
+	sw	$0,64($6)
+	sw	$21,24($sp)
+	srl	$11,$5,4
+	sw	$20,20($sp)
+	sll	$21,$4,28
+	sw	$19,16($sp)
+	sll	$20,$4,24
+	sw	$18,12($sp)
+	sll	$19,$4,20
+	sw	$17,8($sp)
+	sll	$18,$4,16
+	sw	$16,4($sp)
+	sll	$17,$4,12
+	sll	$16,$4,8
+	sw	$fp,36($sp)
+	srl	$10,$5,8
+	sw	$23,32($sp)
+	srl	$9,$5,12
+	sw	$22,28($sp)
+	srl	$8,$5,16
+	sw	$15,8($6)
+	srl	$7,$5,20
+	sw	$0,72($6)
+	srl	$3,$5,24
+	sw	$0,80($6)
+	srl	$2,$5,28
+	srl	$14,$4,16
+	srl	$13,$4,20
+	srl	$12,$4,24
+	sw	$14,32($6)
+	srl	$5,$4,28
+	sw	$13,40($6)
+	srl	$23,$4,4
+	sw	$12,48($6)
+	srl	$24,$4,8
+	sw	$5,56($6)
+	ext	$fp,$4,8,16
+	sw	$23,76($6)
+	srl	$15,$4,12
+	sw	$24,84($6)
+	ext	$22,$4,12,16
+	sw	$fp,16($6)
+	or	$11,$21,$11
+	or	$10,$20,$10
+	sw	$22,24($6)
+	or	$9,$19,$9
+	sw	$11,12($6)
+	or	$8,$8,$18
+	sw	$10,20($6)
+	or	$7,$7,$17
+	sw	$9,28($6)
+	or	$3,$3,$16
+	sw	$8,36($6)
+	andi	$4,$4,0xffff
+	sw	$7,44($6)
+	or	$2,$2,$25
+	sw	$4,0($6)
+	sw	$3,52($6)
+	sw	$2,60($6)
+	sw	$15,92($6)
+	sw	$0,88($6)
+	sw	$14,100($6)
+	sw	$0,96($6)
+	sw	$13,108($6)
+	sw	$0,104($6)
+	sw	$12,116($6)
+	sw	$0,112($6)
+	sw	$5,124($6)
+	sw	$0,120($6)
+	lw	$fp,36($sp)
+	lw	$23,32($sp)
+	lw	$22,28($sp)
+	lw	$21,24($sp)
+	lw	$20,20($sp)
+	lw	$19,16($sp)
+	lw	$18,12($sp)
+	lw	$17,8($sp)
+	lw	$16,4($sp)
+	jr	$31
+	addiu	$sp,$sp,40
+
+	.set	macro
+	.set	reorder
+	.end	des_key_schedule
+	.size	des_key_schedule, .-des_key_schedule
+	.ident	"GCC: (Ubuntu 12.4.0-2ubuntu1~24.04) 12.4.0"
+	.section	.note.GNU-stack,"",@progbits
