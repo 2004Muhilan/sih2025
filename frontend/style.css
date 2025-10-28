@@ -1,0 +1,475 @@
+/* ============================================
+Modern CSS for CryptoAI-Enhanced LLVM Obfuscator
+============================================
+*/
+
+/* -- 1. Variables and Global Styles -- */
+:root {
+  --primary-color: #00aaff;
+  --primary-hover: #0077ff;
+  --dark-color: #1a1c2c;
+  --light-color: #f0f8ff;
+  --text-color: #cdd6f4;
+  --success-color: #45e0a8;
+  --success-bg: rgba(69, 224, 168, 0.1);
+  --success-border: rgba(69, 224, 168, 0.4);
+  --danger-color: #e74c3c;
+  --danger-bg: rgba(231, 76, 60, 0.1);
+  --danger-border: rgba(231, 76, 60, 0.4);
+  --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Helvetica, Arial, sans-serif;
+  --border-radius: 16px;
+  --box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+
+  /* Glassmorphism Variables */
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-border-color: rgba(255, 255, 255, 0.1);
+  --backdrop-blur: 12px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--dark-color);
+  background-image: radial-gradient(
+      at 20% 20%,
+      hsla(212, 90%, 50%, 0.3) 0px,
+      transparent 50%
+    ),
+    radial-gradient(
+      at 80% 20%,
+      hsla(288, 90%, 50%, 0.2) 0px,
+      transparent 50%
+    ),
+    radial-gradient(
+      at 20% 80%,
+      hsla(180, 90%, 50%, 0.25) 0px,
+      transparent 50%
+    ),
+    radial-gradient(
+      at 80% 80%,
+      hsla(30, 90%, 50%, 0.15) 0px,
+      transparent 50%
+    );
+  color: var(--text-color);
+  line-height: 1.6;
+  padding: 2rem;
+  min-height: 100vh;
+}
+
+/* -- 2. Main Layout -- */
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: minmax(400px, 1fr) 2fr;
+  gap: 2rem;
+}
+
+h1,
+h2,
+h3 {
+  color: var(--light-color);
+  font-weight: 600;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  font-size: 2.5rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+h1 > span {
+  color: var(--primary-color);
+}
+
+h2 {
+  border-bottom: 1px solid var(--glass-border-color);
+  padding-bottom: 0.75rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1.5rem;
+}
+
+h3 {
+  margin-bottom: 0.75rem;
+  font-size: 1.25rem;
+  color: var(--primary-color);
+  border-bottom: 1px solid var(--glass-border-color);
+  padding-bottom: 0.5rem;
+  margin-top: 2rem;
+  font-weight: 600;
+}
+
+h3:first-of-type {
+    margin-top: 0.5rem;
+}
+
+/* -- 3. Glass Card -- */
+.card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--backdrop-blur));
+  -webkit-backdrop-filter: blur(var(--backdrop-blur));
+  border: 1px solid var(--glass-border-color);
+  border-radius: var(--border-radius);
+  padding: 1.5rem 2rem;
+  margin-bottom: 2rem;
+  box-shadow: var(--box-shadow);
+  transition: all 0.3s ease;
+}
+
+.card:last-child {
+  margin-bottom: 0;
+}
+
+/* -- 4. Upload Area -- */
+.upload-section {
+  text-align: center;
+}
+
+.upload-section.dragover {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 20px rgba(0, 170, 255, 0.5);
+  transform: scale(1.02);
+}
+
+.upload-section p {
+  margin: 0.5rem 0 1.5rem;
+  opacity: 0.8;
+}
+
+.file-info-display {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: calc(var(--border-radius) - 4px);
+  text-align: left;
+}
+
+.change-btn {
+  background-color: var(--danger-color);
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.2s ease, transform 0.2s ease; /* Added transform */
+}
+
+.change-btn:hover {
+  background-color: #c0392b;
+  transform: translateY(-2px); /* Slight lift on hover */
+}
+
+/* -- 5. Configuration (Removed, keeping for compatibility if needed) -- */
+.config-section div {
+  margin-bottom: 1.5rem;
+}
+
+/* -- 6. Progress & Logging -- */
+#progressSection,
+#resultsSection {
+  display: none; /* Initially hidden by JS */
+}
+
+.progress-bar {
+  width: 100%;
+  height: 12px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+}
+.progress-fill {
+  width: 0%;
+  height: 100%;
+  background-color: var(--primary-color);
+  transition: width 0.4s ease-in-out;
+  border-radius: 6px;
+}
+.log-box {
+  background-color: rgba(0, 0, 0, 0.4);
+  color: var(--text-color);
+  padding: 1rem;
+  border-radius: 8px;
+  font-family: "SF Mono", "Consolas", "Menlo", monospace;
+  font-size: 0.9rem;
+  height: 300px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  border: 1px solid var(--glass-border-color);
+}
+.log-box span {
+  color: var(--primary-color);
+  margin-right: 0.5rem;
+}
+
+/* Custom scrollbar for log box */
+.log-box::-webkit-scrollbar {
+  width: 8px;
+}
+
+.log-box::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+
+.log-box::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+}
+.log-box::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* -- 7. Results -- */
+.results-section h2 {
+  color: var(--success-color);
+}
+
+.download-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2.5rem;
+}
+
+/* -- 8. Controls (Buttons) -- */
+.button {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  text-decoration: none;
+}
+.button:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 170, 255, 0.3);
+}
+.button:disabled {
+  background-color: #555;
+  color: #999;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+.button.secondary {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--glass-border-color);
+  color: var(--text-color);
+}
+.button.secondary:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: var(--primary-color);
+  color: var(--light-color);
+  box-shadow: 0 4px 8px rgba(0, 170, 255, 0.2);
+  transform: translateY(-2px); /* Slight lift on hover for secondary buttons */
+}
+
+/* -- 9. Responsiveness -- */
+@media (max-width: 1200px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 768px) {
+  body {
+    padding: 1rem;
+  }
+  .card {
+    padding: 1.5rem;
+  }
+  h1 {
+    font-size: 2rem;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .download-buttons {
+    flex-direction: column;
+  }
+  .download-buttons .button {
+    width: 100%;
+  }
+}
+
+
+/* -- 10. Animations & Enhanced UI -- */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Apply animation to sections when they appear */
+#progressSection, #resultsSection {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+
+/* -- Enhanced Results Section -- */
+
+/* Verdict Banner */
+.verdict-crypto,
+.verdict-no-crypto {
+  padding: 1.5rem;
+  border-radius: 12px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  border: 1px solid;
+}
+
+.verdict-crypto {
+  background-color: var(--danger-bg);
+  border-color: var(--danger-border);
+  color: var(--danger-color);
+}
+
+.verdict-no-crypto {
+  background-color: var(--success-bg);
+  border-color: var(--success-border);
+  color: var(--success-color);
+}
+
+
+/* Metrics Grid Styling */
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.metric-item {
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid var(--glass-border-color);
+    border-radius: 12px;
+    padding: 1.25rem 1rem;
+    text-align: left;
+    transition: all 0.3s ease;
+}
+
+.metric-item:hover {
+    transform: translateY(-5px);
+    background: rgba(0, 0, 0, 0.4);
+    border-color: var(--primary-hover);
+}
+
+.metric-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    margin-bottom: 0.75rem;
+    color: var(--text-color);
+    opacity: 0.8;
+}
+
+.metric-label svg {
+    opacity: 0.7;
+    stroke-width: 2;
+}
+
+.metric-value {
+    display: block;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--light-color);
+    line-height: 1.2;
+    word-wrap: break-word;
+}
+
+.metric-value.highlight {
+    color: var(--danger-color); /* Highlight crypto functions in red */
+    font-size: 2rem;
+}
+.metric-item:has(.metric-value.highlight) {
+    border-color: var(--danger-border);
+}
+
+
+.metric-value.sub {
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: var(--text-color);
+}
+
+/* Algorithm Table */
+.algo-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    background: rgba(0,0,0,0.2);
+    border-radius: 8px;
+    overflow: hidden;
+}
+.algo-table th,
+.algo-table td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--glass-border-color);
+}
+.algo-table thead {
+    background: rgba(0,0,0,0.3);
+}
+.algo-table th {
+    font-size: 0.9rem;
+    color: var(--light-color);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.algo-table tbody tr:last-child td {
+    border-bottom: none;
+}
+.algo-table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+.algo-table td:nth-child(2),
+.algo-table td:nth-child(3) {
+    text-align: center;
+    font-weight: 600;
+    color: var(--light-color);
+}
+.algo-table td:first-child {
+    font-family: "SF Mono", "Consolas", "Menlo", monospace;
+    word-break: break-all;
+} 
